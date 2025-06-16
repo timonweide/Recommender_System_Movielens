@@ -723,27 +723,3 @@ def evaluate_models(df_train, df_test, models, N=10):
             results[name] = {'error': str(e)}
     
     return results
-
-def evaluate_models(df_train, df_test, models, N=10):
-    # Initialize results dictionary
-    results = {}
-
-    # Iterate over each model
-    for name, fn in models.items():
-
-        try:
-            # Evaluate metrics
-            topn = evaluate_top_n(df_train, df_test, fn, N=N)
-            rmse = evaluate_rmse(df_train, df_test, fn, N=N)
-        
-            # Store results
-            results[name] = {
-                'TopN': topn,
-                'RMSE': rmse
-            }
-
-        # Raise an error if the model function fails
-        except Exception as e:
-            results[name] = {'error': str(e)}
-    
-    return results
