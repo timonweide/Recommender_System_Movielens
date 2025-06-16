@@ -34,12 +34,12 @@ This project uses the [MovieLens dataset](https://grouplens.org/datasets/moviele
 1. Prepare the data:
    - Place the MovieLens CSV files in the designated data directory.
 
-2. Train the recommender system:
+2. Run the streamlit app:
    ```bash
-   python main.py
+   streamlit run rec_sys_app.py
    ```
 
-3. Modify configuration files or scripts to experiment with different algorithms or parameters.
+3. Choose algorithms and users inside the dashboard.
 
 ## Project Structure
 
