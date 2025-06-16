@@ -1,0 +1,8 @@
+streamlit
+pandas
+numpy
+sklearn
+scipy
+implicit
+io
+contextlib
