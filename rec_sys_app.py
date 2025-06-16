@@ -6,6 +6,12 @@ import io
 import contextlib
 import rec_sys_algos as rs
 
+# Set page configuration
+st.set_page_config(
+    page_title="MovieLens Recommender",
+    page_icon="🎬",
+    layout="wide"
+)
 
 # ---- 1. ALGORITHMS ----
 
@@ -163,6 +169,7 @@ rec_tab, history_tab, eval_tab = st.tabs([
 
 # Recommendations Tab
 with rec_tab:
+    st.markdown(f"Here you can see the recommendations for the input chosen in the sidebar.")
     if run:
         # Add a loading spinner
         with st.spinner("Generating recommendations..."):
@@ -207,8 +214,9 @@ with rec_tab:
 
 # Watch History Tab
 with history_tab:
-    st.markdown(f"This is the watch history for the chosen user **{user_id}**")
+    st.markdown(f"Here you can see the watch history for the chosen user.")
     if user_id is not None:
+        st.success(f"Watch History of user **{user_id}**")
         
         # Filter, sort, merge with movie titles & genres
         user_history = (
