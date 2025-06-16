@@ -4,5 +4,3 @@ numpy
 scikit-learn
 scipy
 implicit
-io
-contextlib
