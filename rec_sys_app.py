@@ -201,6 +201,9 @@ with rec_tab:
             # Raise any exceptions that occur during the recommendation generation
             except Exception as e:
                 st.error(f"⚠️ {e}")
+    else:
+        st.info("Choose a user and algorithm in the sidebar.")
+
 
 # Watch History Tab
 with history_tab:
