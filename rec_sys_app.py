@@ -155,8 +155,13 @@ st.markdown(
 )
 
 # Split the main pane into two tabs
-rec_tab, eval_tab = st.tabs(["🎯 Recommendations", "📈 Live evaluation"])
+rec_tab, history_tab, eval_tab = st.tabs([
+    "🎯 Recommendations",
+    "🕒 Watch history",
+    "📈 Live evaluation"
+])
 
+# Recommendations Tab
 with rec_tab:
     if run:
         # Add a loading spinner
@@ -197,9 +202,36 @@ with rec_tab:
             except Exception as e:
                 st.error(f"⚠️ {e}")
 
+# Watch History Tab
+with history_tab:
+    st.markdown(f"This is the watch history for the chosen user **{user_id}**")
+    if user_id is not None:
+        
+        # Filter, sort, merge with movie titles & genres
+        user_history = (
+            ratings[ratings.userId == user_id]
+            .sort_values("timestamp", ascending=False)
+            .merge(movies[["title", "genres"]],
+                   left_on="movieId",
+                   right_index=True,
+                   how="left")
+        )
+        
+        # Convert timestamp to datetime
+        user_history["watch_date"] = pd.to_datetime(
+            user_history["timestamp"], unit="s"
+        )
+        st.dataframe(
+            user_history[[
+                "watch_date", "movieId", "title", "genres", "rating"
+            ]].rename(columns={"rating": "Rating"}),
+            use_container_width=True,
+            hide_index=True
+        )
+    else:
+        st.info("No user selected. Please choose a user ID in the sidebar.")
 
-# ---- 5. LIVE EVALUATION TAB ----
-
+# Live Evaluation Tab
 with eval_tab:
     st.markdown(
         "Choose a test hold-out size, pick one or more models and click **Evaluate** "
